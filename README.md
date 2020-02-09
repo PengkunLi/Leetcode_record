@@ -4,7 +4,7 @@
 ## [1. Two Sum](https://leetcode-cn.com/problems/two-sum/)
 
 ### Method 1 Hashmap
-```
+```python
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         # method 1 using hash map
@@ -27,7 +27,7 @@ Logic Between line 6 and line 8:
 ## [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)
 
 ### Method 1 Iteration
-```
+```python
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -58,7 +58,7 @@ class Solution:
 - note the carry to add a new node at the end of the list
 
 ### Method 2 Recursion
-```
+```python
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         # method 2 recursion
@@ -74,7 +74,7 @@ class Solution:
 ## [3. Longest Substring Without Repeating Characters](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
 ### Method 1 Sliding window
-```
+```python
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         # Sliding Window
