@@ -10,9 +10,9 @@ class Solution:
         # method 1 using hash map
         num_pair = {}
         for i, num in enumerate(nums):
-            if target - num in num_pair:
+            if target - num in num_pair: #line 6
                 return [num_pair[target - num], i]
-            num_pair[num] = i       
+            num_pair[num] = i #line 8
         return None
 ```
 Logic Between line 6 and line 8:
@@ -142,11 +142,12 @@ class Solution:
 
 ### Method 1 Sorting + Two pointer
 ```python
-nums.sort()
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
         res = []
-
         for k in range(len(nums) - 2):
-            if nums[k] > 0: break # k后面的数肯定大于零，跳出循环
+            if nums[k] > 0: break # the number after nums[k] must > 0, break
             if k > 0 and nums[k] == nums[k - 1]: continue 
             i, j = k + 1, len(nums) - 1
             while i < j:
@@ -154,8 +155,8 @@ nums.sort()
                     res.append([nums[i], nums[j], nums[k]])
                     i += 1
                     j -= 1
-                    while nums[i] == nums[i-1] and i < j:i += 1  # 相同的数跳过
-                    while nums[j] == nums[j+1] and i < j:j -= 1  # 相同的数跳过
+                    while nums[i] == nums[i-1] and i < j:i += 1  # jump for the same nums
+                    while nums[j] == nums[j+1] and i < j:j -= 1  # jump for the same nums
                 elif nums[i] + nums[j] + nums[k] < 0:
                     i += 1
                     while nums[i] == nums[i-1] and i < j:i += 1 
@@ -164,4 +165,67 @@ nums.sort()
                     while nums[j] == nums[j+1] and i < j:j -= 1
         return res
 ```
-Have not understood yet
+
+## [16. 3Sum Closest](https://leetcode-cn.com/problems/3sum-closest/)
+```python
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        if n <= 3: return sum(nums)
+        nums.sort()
+        closest = sum(nums[:3])
+        for i in range(n - 2):
+            left, right = i + 1, n - 1
+            while left < right:
+                candi = nums[i] + nums[left] + nums[right]
+                if abs(closest - target) > abs(candi - target):
+                    closest = candi
+                if candi < target:
+                    left += 1
+                elif candi > target:
+                    right -= 1
+                else:
+                    return closest
+        return closest
+```
+
+## [19. Remove Nth Node From End of List](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+```python
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        if not head: return head
+        if not head.next and n == 1: return None
+        dum = ListNode(-1)
+        dum.next = head
+        fast = slow = dum #pay more attention
+        while n:
+            fast = fast.next
+            n -= 1
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return dum.next
+```
+- Should pay more attention to the position of the fast and slow pointer.
+
+## [20. Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/submissions/)
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if not s: return True
+        lookup = {')' : '(',
+                  ']' : '[',
+                  '}' : '{'}
+
+        stack = []
+        for par in s:
+            if par not in lookup:
+                stack.append(par)
+            elif stack and stack[-1] == lookup[par]:
+                stack.pop()
+            else:
+                return False
+        return not len(stack)
+```
+- Should pay attention to every single case and list each of them on the paper.
