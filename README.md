@@ -210,6 +210,7 @@ class Solution:
 - Should pay more attention to the position of the fast and slow pointer.
 
 ## [20. Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/submissions/)
+### Method1 stack
 ```python
 class Solution:
     def isValid(self, s: str) -> bool:
