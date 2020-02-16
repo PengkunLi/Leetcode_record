@@ -230,3 +230,60 @@ class Solution:
         return not len(stack)
 ```
 - Should pay attention to every single case and list each of them on the paper.
+
+## [24. Swap Nodes in Pairs]()
+### Method 1 Dummy Node
+```python
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if not head or not head.next: return head
+        dum = ListNode(-1)
+        dum.next = head
+        first, second = dum, dum.next
+        while first.next and second.next:
+            p = ListNode(0)
+            p.next = first.next
+            first.next = second.next
+            p.next.next  = second.next.next
+            first.next.next = p.next
+            p = None
+            second = second.next
+            first = first.next.next
+        return dum.next
+```
+- Should draw nodes sequence to illustrate
+## [27. Remove Element](https://leetcode-cn.com/problems/remove-element/submissions/)
+### Method 1 Two Pointers
+```python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        left, right = 0, len(nums) - 1
+        if left == right and nums[left] == val or not nums:
+            return 0
+        while left <= right:
+            if nums[left] == val:
+                nums[left], nums[right] = nums[right], nums[left]
+                right -= 1
+            else:
+                left += 1
+        return right + 1
+```
+- Need to carefully consider the termination condition of Two pointers
+
+## [28. Inplement strStr()](https://leetcode-cn.com/problems/remove-element/submissions/)
+### Method1 Brute Force
+```python
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        m, n = len(haystack), len(needle)
+        i = 0
+        if not n: return 0
+        if not m or m < n: return -1
+        while i + n <= m:
+            if haystack[i:i+n] == needle:
+                return i
+            i += 1
+        return -1
+```
+
+- Other Methods like KMP, Sunday, [Offset Table](https://leetcode-cn.com/problems/implement-strstr/solution/python3-sundayjie-fa-9996-by-tes/)
