@@ -287,3 +287,66 @@ class Solution:
 ```
 
 - Other Methods like KMP, Sunday, [Offset Table](https://leetcode-cn.com/problems/implement-strstr/solution/python3-sundayjie-fa-9996-by-tes/)
+
+## [200. Number of islands](https://leetcode-cn.com/problems/number-of-islands/)
+
+### Method1 Iteration BFS/DFS
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        moves = [(1,0),(0,1),(-1,0),(0,-1)]
+
+        m = len(grid)
+        if not m: return 0 
+        n = len(grid[0])
+        if not n: return 0
+        visited = set()
+        islands = 0
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1' and (i,j) not in visited:
+                    islands += 1
+                    visited.add((i,j))
+                    deque = [(i,j)]
+                    while deque:
+                        lasti, lastj = deque.pop(0)
+			#lasti, lastj = deque.pop()
+                        for move in moves:
+                            curi, curj = lasti + move[0], lastj + move[1]
+                            if -1 < curi < m and -1 < curj < n and (curi,curj) not in visited:
+                                visited.add((curi,curj))
+                                if grid[curi][curj] == '1':
+                                    deque.append((curi, curj))
+                                    
+        return islands
+```
+
+### Method2 Recursion DFS
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        self.moves = [(1,0),(0,1),(-1,0),(0,-1)]
+
+        m = len(grid)
+        if not m: return 0 
+        n = len(grid[0])
+        if not n: return 0
+        visited = set()
+        islands = 0
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1' and (i,j) not in visited:
+                    islands += 1
+                    self.__dfs(grid, i, j, m, n, visited)           
+        return islands
+    
+    def __dfs(self, grid, lasti, lastj, m, n, visited):
+        visited.add((lasti,lastj))
+        for move in self.moves:
+            curi, curj = lasti + move[0], lastj + move[1]
+            if -1 < curi < m and -1 < curj < n and (curi,curj) not in visited:
+                if grid[curi][curj] == '1':
+                    self.__dfs(grid, curi, curj, m, n, visited)
+```
