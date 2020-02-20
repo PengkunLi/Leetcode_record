@@ -35,6 +35,8 @@ class Solution:
 
 ## [142. Linked List Cycle II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 ```python
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
         fast, slow = head, head
         while True:
             if not (fast and fast.next): return
