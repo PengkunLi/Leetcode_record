@@ -30,7 +30,7 @@ int binarySearch(vector<int> &A, int target){
     return -1;
     
 }
-
+```
 ## [33. Search in Rotated Sorted Array](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
 
 ```python
