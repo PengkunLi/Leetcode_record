@@ -47,3 +47,31 @@ class Solution:
             fast, slow = fast.next, slow.next
         return fast
 ```
+
+## [206. Reverse Linked List](https://leetcode-cn.com/problems/reverse-linked-list/)
+
+### Method1 Recursion
+```python
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head or not head.next: return head
+        p = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return p
+```
+
+### Method2 Iteration
+```python
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        pre = None
+        cur = head
+        while cur != None:
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        return pre
+```
+
